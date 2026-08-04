@@ -1,0 +1,17 @@
+{
+  "name": "歴代天皇126",
+  "short_name": "歴代天皇",
+  "description": "神武天皇から第126代まで順番に覚える暗記アプリ",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f1e8",
+  "theme_color": "#f5f1e8",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
