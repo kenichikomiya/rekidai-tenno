@@ -1,50 +1,279 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f5f1e8">
-  <meta name="description" content="神武天皇から第126代まで、歴代天皇を順番に覚えるための暗記アプリ">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <title>歴代天皇126</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>歴代天皇126｜解説テスト版</title>
+<style>
+:root {
+  --bg:#f6f6f2;
+  --card:#fff;
+  --text:#202020;
+  --sub:#707070;
+  --line:#deded8;
+  --accent:#7b1f28;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.8;
+}
+header {
+  position:sticky;
+  top:0;
+  z-index:10;
+  padding:14px 18px 12px;
+  background:rgba(246,246,242,.94);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner { max-width:760px; margin:auto; }
+h1 { margin:0; font-size:21px; letter-spacing:.04em; }
+.subtitle { margin-top:2px; color:var(--sub); font-size:12px; }
+.progress {
+  margin-top:10px;
+  height:5px;
+  border-radius:5px;
+  background:#ddd;
+  overflow:hidden;
+}
+.progress > div { height:100%; width:0; background:var(--accent); transition:width .2s; }
+main { max-width:760px; margin:0 auto; padding:18px 14px 90px; }
+.card {
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px 20px;
+  margin:0 0 15px;
+  box-shadow:0 2px 10px rgba(0,0,0,.025);
+  scroll-margin-top:100px;
+}
+.number { font-size:13px; color:var(--accent); font-weight:700; }
+h2 { margin:2px 0 0; font-size:26px; letter-spacing:.05em; }
+.kana { color:var(--sub); font-size:13px; margin:0 0 13px; }
+p { margin:0; font-size:15.5px; text-align:justify; }
+nav {
+  position:fixed;
+  left:0; right:0; bottom:0;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+}
+.nav-inner {
+  max-width:760px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:10px;
+  align-items:center;
+}
+button {
+  appearance:none;
+  border:1px solid #ccc;
+  background:white;
+  color:var(--text);
+  border-radius:12px;
+  min-height:44px;
+  font-size:15px;
+  padding:8px 14px;
+}
+button:disabled { opacity:.35; }
+#counter { min-width:68px; text-align:center; font-size:13px; color:var(--sub); }
+.note {
+  max-width:760px;
+  margin:0 auto 15px;
+  color:var(--sub);
+  font-size:12px;
+  padding:0 3px;
+}
+@media (max-width:480px) {
+  main { padding-left:10px; padding-right:10px; }
+  .card { padding:20px 17px; border-radius:14px; }
+  p { font-size:15px; }
+}
+</style>
 </head>
 <body>
-  <main class="app">
-    <section id="homeScreen" class="screen active" aria-labelledby="appTitle">
-      <div class="home-card">
-        <p class="eyebrow">歴代天皇暗記</p>
-        <h1 id="appTitle">歴代天皇126</h1>
-        <p class="lead">神武天皇から順番に、一代ずつ覚えます。</p>
-        <button id="startButton" class="primary-button" type="button">神武天皇から始める</button>
-        <button id="continueButton" class="secondary-button hidden" type="button">続きから</button>
-      </div>
-    </section>
+<header>
+  <div class="header-inner">
+    <h1>歴代天皇126</h1>
+    <div class="subtitle">解説テスト版｜第1代 神武天皇〜第18代 反正天皇</div>
+    <div class="progress"><div id="bar"></div></div>
+  </div>
+</header>
 
-    <section id="viewerScreen" class="screen" aria-live="polite">
-      <header class="viewer-header">
-        <button id="homeButton" class="text-button" type="button">ホーム</button>
-        <div id="progressText" class="progress-text">1 / 126</div>
-      </header>
-
-      <div class="progress-track" aria-hidden="true">
-        <div id="progressBar" class="progress-bar"></div>
-      </div>
-
-      <article class="emperor-card">
-        <p id="numberText" class="number-text">第1代</p>
-        <h2 id="nameText" class="name-text">神武天皇</h2>
-        <p id="readingText" class="reading-text">じんむてんのう</p>
+<main>
+  <div class="note">YouTube動画の文字起こし校正版をもとに、読みやすい長さに整理した試作です。</div>
+      <article class="card" id="e1">
+        <div class="number">第1代</div>
+        <h2>神武天皇</h2>
+        <div class="kana">じんむてんのう</div>
+        <p>日本の夜明けを告げた初代天皇。天照大御神の血を引き、日向の地から大和を目指す東征という過酷な旅に出ました。数々の苦難を乗り越え、金鵄や八咫烏の導きによって橿原の地で即位。ここから日本の歴史が始まりました。単なる伝説ではなく、国家の礎を築いた不屈の精神を持つ指導者として今も語り継がれています。</p>
       </article>
+      <article class="card" id="e2">
+        <div class="number">第2代</div>
+        <h2>綏靖天皇</h2>
+        <div class="kana">すいぜいてんのう</div>
+        <p>初代の意志を継いだ2代目天皇。神武天皇の崩御後、異母兄による皇位簒奪の陰謀という絶体絶命の危機に直面しました。しかし勇気を持ってこの反乱を鎮め、大和を再び一つにまとめました。動乱期における秩序の守護者として、皇位継承の形を固める重要な一歩を築いたと語られています。</p>
+      </article>
+      <article class="card" id="e3">
+        <div class="number">第3代</div>
+        <h2>安寧天皇</h2>
+        <div class="kana">あんねいてんのう</div>
+        <p>国家の安定を盤石にした3代目天皇。その名の通り、安らかで安寧な世の中を求めたとされます。戦乱の火種を消し、人々の暮らしに平穏をもたらすことに心を砕いた治世。記録の少ない時代ですが、初期の激動を乗り越え、日本という国が熟成していく土台を静かに築いた存在として語られます。</p>
+      </article>
+      <article class="card" id="e4">
+        <div class="number">第4代</div>
+        <h2>懿徳天皇</h2>
+        <div class="kana">いとくてんのう</div>
+        <p>美徳を体現した4代目天皇。力による支配ではなく、徳によって民を導く政治を目指したとされます。欠史八代の一人で記録は乏しいものの、一族の絆を重んじ、武力ではなく心のつながりで国を治めるという姿勢が、後の天皇たちに受け継がれる精神的な支柱になったと語られています。</p>
+      </article>
+      <article class="card" id="e5">
+        <div class="number">第5代</div>
+        <h2>孝昭天皇</h2>
+        <div class="kana">こうしょうてんのう</div>
+        <p>伝統を受け継いだ5代目天皇。先代たちが築いた平和を守り、次の世代へとつなぐ役割を果たしたとされます。先祖への感謝を政治の根幹に据えたと語られ、この時代には大和の勢力が少しずつ広がり、周辺の豪族たちとの結びつきも深まっていったとされます。</p>
+      </article>
+      <article class="card" id="e6">
+        <div class="number">第6代</div>
+        <h2>孝安天皇</h2>
+        <div class="kana">こうあんてんのう</div>
+        <p>長きにわたり国を治めた6代目天皇。100歳を超える長寿であったと伝えられ、国の安らぎを象徴する存在として語られます。治世では大きな争いが少なく、農業や民の生活が向上したとされました。急激な成長ではなく、確実な安定を選んだ時代として描かれています。</p>
+      </article>
+      <article class="card" id="e7">
+        <div class="number">第7代</div>
+        <h2>孝霊天皇</h2>
+        <div class="kana">こうれいてんのう</div>
+        <p>地方への影響力を強めた7代目天皇。この時代、大和の勢力は吉備など遠方へも広がり始めたと語られます。多くの皇子を各地へ派遣し、地域との結びつきを築こうとしたとされます。桃太郎伝説のモデルともいわれる吉備津彦命も皇子の一人とされ、伝説と歴史が交差する時代を象徴します。</p>
+      </article>
+      <article class="card" id="e8">
+        <div class="number">第8代</div>
+        <h2>孝元天皇</h2>
+        <div class="kana">こうげんてんのう</div>
+        <p>動乱の予兆の中で伝統を支えた8代目天皇。大和盆地を中心とした支配体制を整え、皇室の正統性を強めたと語られます。周辺勢力の動きが活発になる中で均衡を保ち、次の時代の飛躍に向けて力を蓄えた時期として描かれています。</p>
+      </article>
+      <article class="card" id="e9">
+        <div class="number">第9代</div>
+        <h2>開化天皇</h2>
+        <div class="kana">かいかてんのう</div>
+        <p>新たな文明の幕開けを象徴する9代目天皇。大陸からの影響や技術が少しずつ入り、文化が開けていった時代とされます。欠史八代の最後にあたり、神話の時代から次の英雄的な時代へと橋渡しをした存在として語られています。</p>
+      </article>
+      <article class="card" id="e10">
+        <div class="number">第10代</div>
+        <h2>崇神天皇</h2>
+        <div class="kana">すじんてんのう</div>
+        <p>実質的な国家創成者とも称される10代目天皇。国を襲った疫病に対し、神々を祀ることで立ち向かったとされます。また、全国に調税や戸籍につながる仕組みを整えたと語られ、古代国家の統治体制を大きく前進させた人物として描かれています。</p>
+      </article>
+      <article class="card" id="e11">
+        <div class="number">第11代</div>
+        <h2>垂仁天皇</h2>
+        <div class="kana">すいにんてんのう</div>
+        <p>慈愛と知恵で国を治めた11代目天皇。殉死という残酷な風習を改め、土人形である埴輪を身代わりに置くようになったという伝承で知られます。また、野見宿禰と当麻蹴速の力比べは日本最古の相撲の伝承として有名です。不老不死の果実を求めて家臣を派遣した逸話も残ります。</p>
+      </article>
+      <article class="card" id="e12">
+        <div class="number">第12代</div>
+        <h2>景行天皇</h2>
+        <div class="kana">けいこうてんのう</div>
+        <p>巨大な行動力と情熱を備えた12代目天皇。自ら九州へ遠征して反抗勢力を鎮めるなど、大和朝廷の影響力を広げた拡大期の指導者として語られます。日本武尊の父としても知られ、親子で日本の東西を駆け巡った伝承は今も広く知られています。</p>
+      </article>
+      <article class="card" id="e13">
+        <div class="number">第13代</div>
+        <h2>成務天皇</h2>
+        <div class="kana">せいむてんのう</div>
+        <p>国家を組織化した13代目天皇。先代が広げた領域に区分を設け、地方官を配置したと伝えられます。武力による征服から、仕組みやルールによる管理へと移る時代を象徴する存在として描かれ、中央と地方を結ぶ統治体制の整備に力を注いだとされています。</p>
+      </article>
+      <article class="card" id="e14">
+        <div class="number">第14代</div>
+        <h2>仲哀天皇</h2>
+        <div class="kana">ちゅうあいてんのう</div>
+        <p>神意と現実の狭間で苦悩した14代目天皇。熊襲征討のため九州へ赴き、そこで神から海の向こうの新羅を目指すよう告げられたという伝承が残ります。志半ばで命を落とし、その意志は妻の神功皇后に引き継がれ、朝鮮半島をめぐる壮大な物語へとつながっていきます。</p>
+      </article>
+      <article class="card" id="e15">
+        <div class="number">第15代</div>
+        <h2>応神天皇</h2>
+        <div class="kana">おうじんてんのう</div>
+        <p>文明開化の波を導いた15代目天皇。大陸から多くの渡来人を受け入れ、土木技術や漢字などの文化を積極的に取り入れたとされます。後に戦いの神・八幡神として祀られますが、その時代は外来文化を柔軟に受け入れ、日本の力を大きく高めた時期として語られています。</p>
+      </article>
+      <article class="card" id="e16">
+        <div class="number">第16代</div>
+        <h2>仁徳天皇</h2>
+        <div class="kana">にんとくてんのう</div>
+        <p>慈愛のリーダーシップを体現した16代目天皇。民家から炊煙が上がっていないのを見て民の困窮を知り、宮殿の修理をやめて3年間税を免除したという逸話で知られます。「民の富こそが自分の富」と考えた理想の君主像として、現在まで広く語り継がれています。</p>
+      </article>
+      <article class="card" id="e17">
+        <div class="number">第17代</div>
+        <h2>履中天皇</h2>
+        <div class="kana">りちゅうてんのう</div>
+        <p>記録の重要性を重んじた17代目天皇。即位直後に弟の反乱に遭い、火を放たれた宮殿から脱出するという危機を経験したとされます。その後体制を立て直し、地方に国史を置いて記録を管理させるなど、情報を集約し秩序を再構築しようとした人物として描かれています。</p>
+      </article>
+      <article class="card" id="e18">
+        <div class="number">第18代</div>
+        <h2>反正天皇</h2>
+        <div class="kana">はんぜいてんのう</div>
+        <p>容姿端麗で平和を愛した18代目天皇。生まれた時から整った美しい歯を持っていたと伝えられ、穏やかな人柄で知られます。先代までに築かれた繁栄を維持し、大きな軍事行動を控えて内政の充実に努めた、安定の時代を象徴する天皇として語られています。</p>
+      </article>
+</main>
 
-      <nav class="navigation" aria-label="天皇を順番に表示">
-        <button id="nextButton" class="nav-button next-button" type="button">次へ</button>
-        <button id="prevButton" class="nav-button prev-button" type="button">前へ</button>
-      </nav>
-    </section>
-  </main>
+<nav>
+  <div class="nav-inner">
+    <button id="prev">← 前へ</button>
+    <div id="counter">1 / 18</div>
+    <button id="next">次へ →</button>
+  </div>
+</nav>
 
-  <script src="app.js"></script>
+<script>
+const total = 18;
+let current = 1;
+
+function updateUI() {
+  const card = document.getElementById('e' + current);
+  if (card) card.scrollIntoView({behavior:'smooth', block:'start'});
+  document.getElementById('counter').textContent = current + ' / ' + total;
+  document.getElementById('bar').style.width = (current / total * 100) + '%';
+  document.getElementById('prev').disabled = current === 1;
+  document.getElementById('next').disabled = current === total;
+  localStorage.setItem('rekidai-tenno-current', current);
+}
+
+document.getElementById('prev').addEventListener('click', () => {
+  if (current > 1) { current--; updateUI(); }
+});
+document.getElementById('next').addEventListener('click', () => {
+  if (current < total) { current++; updateUI(); }
+});
+
+const observer = new IntersectionObserver(entries => {
+  const visible = entries
+    .filter(e => e.isIntersecting)
+    .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+  if (visible) {
+    const n = Number(visible.target.id.slice(1));
+    if (n && n !== current) {
+      current = n;
+      document.getElementById('counter').textContent = current + ' / ' + total;
+      document.getElementById('bar').style.width = (current / total * 100) + '%';
+      document.getElementById('prev').disabled = current === 1;
+      document.getElementById('next').disabled = current === total;
+      localStorage.setItem('rekidai-tenno-current', current);
+    }
+  }
+}, {threshold:.55});
+
+document.querySelectorAll('.card').forEach(c => observer.observe(c));
+
+const saved = Number(localStorage.getItem('rekidai-tenno-current'));
+if (saved >= 1 && saved <= total) {
+  current = saved;
+  setTimeout(() => updateUI(), 50);
+} else {
+  updateUI();
+}
+</script>
 </body>
 </html>
