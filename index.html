@@ -35,8 +35,22 @@ header {
   background:rgba(246,246,242,.96);
 }
 .header-inner { max-width:760px; margin:0 auto; }
-h1 { margin:0; font-size:21px; letter-spacing:.04em; }
-.subtitle { margin-top:2px; color:var(--sub); font-size:12px; }
+h1 { margin:8px 0 0; font-size:21px; letter-spacing:.04em; }
+.home-btn {
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  background:transparent;
+  color:var(--accent);
+  padding:2px 0;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+  user-select:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+  touch-action:manipulation;
+}
 .progress {
   margin-top:10px; height:5px; border-radius:999px;
   background:#ddd; overflow:hidden;
@@ -61,11 +75,25 @@ main {
   box-shadow:0 2px 12px rgba(0,0,0,.03);
 }
 .number { color:var(--accent); font-size:13px; font-weight:700; }
-h2 { margin:4px 0 0; font-size:30px; letter-spacing:.05em; line-height:1.35; }
-.kana { margin-top:3px; color:var(--sub); font-size:13px; }
+h2 {
+  margin:12px 0 0;
+  font-family:"Hiragino Mincho ProN","YuMincho","Yu Mincho","Hiragino Mincho Pro",serif;
+  font-size:38px;
+  font-weight:600;
+  letter-spacing:.08em;
+  line-height:1.4;
+  text-align:center;
+}
+.kana {
+  margin-top:7px;
+  color:var(--sub);
+  font-size:17px;
+  letter-spacing:.08em;
+  text-align:center;
+}
 .description {
-  margin:22px 0 0;
-  font-size:16px;
+  margin:28px 0 0;
+  font-size:18px;
   line-height:1.95;
   text-align:justify;
 }
@@ -114,16 +142,17 @@ nav {
   header { padding-left:14px; padding-right:14px; }
   main { padding:16px 10px 18px; }
   .card { padding:22px 18px 25px; border-radius:15px; }
-  h2 { font-size:27px; }
-  .description { font-size:15.5px; line-height:1.9; }
+  h2 { font-size:34px; }
+  .kana { font-size:16px; }
+  .description { font-size:17.5px; line-height:1.9; }
 }
 </style>
 </head>
 <body>
 <header>
   <div class="header-inner">
-    <h1>歴代天皇126</h1>
-    <div class="subtitle">第1代 神武天皇〜第126代 今上天皇｜北朝5代を併記</div>
+    <button id="homeBtn" class="home-btn" type="button">ホーム</button>
+    <h1>歴代天皇126代</h1>
     <div class="progress"><div id="bar"></div></div>
   </div>
 </header>
@@ -162,6 +191,7 @@ const counterEl = document.getElementById('counter');
 const barEl = document.getElementById('bar');
 const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
+const homeBtn = document.getElementById('homeBtn');
 
 function render() {
   const e = emperors[current];
@@ -181,8 +211,12 @@ function goNext() { if (current < total - 1) { current++; render(); } }
 
 prevBtn.addEventListener('click', goPrev);
 nextBtn.addEventListener('click', goNext);
+homeBtn.addEventListener('click', () => {
+  current = 0;
+  render();
+});
 
-[prevBtn, nextBtn].forEach(btn => {
+[prevBtn, nextBtn, homeBtn].forEach(btn => {
   btn.addEventListener('contextmenu', e => e.preventDefault());
   btn.addEventListener('selectstart', e => e.preventDefault());
   btn.addEventListener('dragstart', e => e.preventDefault());
